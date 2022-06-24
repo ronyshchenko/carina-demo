@@ -15,76 +15,150 @@
  */
 package com.qaprosoft.carina.demo.gui.pages;
 
-import java.lang.invoke.MethodHandles;
-import java.util.List;
-
 import com.qaprosoft.carina.core.foundation.utils.Configuration;
 import com.qaprosoft.carina.core.foundation.utils.R;
+import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
+import com.qaprosoft.carina.core.gui.AbstractPage;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
-import com.qaprosoft.carina.core.gui.AbstractPage;
-import com.qaprosoft.carina.demo.gui.components.FooterMenu;
-import com.qaprosoft.carina.demo.gui.components.WeValuePrivacyAd;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 
-public class SauceLoginPage extends AbstractPage {
+public class ProductCardPage extends AbstractPage {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    public SauceLoginPage(WebDriver driver) {
+    public ProductCardPage(WebDriver driver) {
         super(driver);
-        setUiLoadedMarker(newsColumn);
+        setUiLoadedMarker(products);
         setPageAbsoluteURL(R.CONFIG.get(Configuration.Parameter.URL.getKey()));
     }
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div[1]")
-    private ExtendedWebElement newsColumn;
+    @FindBy(xpath = "//*[@class=\"inventory_item_img\"]")
+    private By productsImage;
 
-    @FindBy(xpath = "//*[@id=\"user-name\"]")
-    private ExtendedWebElement userInput ;
+    @FindBy(xpath = "//*[@class=\"inventory_item_name\"]")
+    private By productsName ;
 
-    @FindBy(xpath = "/html/body/div/div/div[2]/div[1]/div[1]/div/form/div[2]/input")
-    private ExtendedWebElement passwordInput ;
+    @FindBy(xpath = "//*[@class=\"inventory_item_desc\"]")
+    private By productsDesc ;
 
-    @FindBy(xpath = "//*[@id=\"login-button\"]")
-    private ExtendedWebElement loginButton ;
+    @FindBy(xpath = "//*[@class=\"inventory_item_price\"]")
+    private By productsPrice ;
 
-    @FindBy(xpath = "/html/body/div/div/div[2]/div[2]/div/div[1]")
-    private ExtendedWebElement  userNameStr ;
+    @FindBy(xpath = "//select[@class='product_sort_container']")
+    private By  select ;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div[2]/div/div[2]")
-    private ExtendedWebElement passwordStr ;
+    @FindBy(xpath = "/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[1]")
+    private By firstOption ;
 
-//    WebElement userInput = getDriver().findElement(By.xpath("//*[@id=\"user-name\"]"));
-//    WebElement passwordInput = getDriver().findElement(By.xpath("/html/body/div/div/div[2]/div[1]/div[1]/div/form/div[2]/input"));
-//    WebElement loginButton = getDriver().findElement(By.xpath("//*[@id=\"login-button\"]"));
+    @FindBy(xpath = "/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[2]")
+    private By secondOption ;
 
-//    WebElement userNameStr = getDriver().findElement(By.xpath("/html/body/div/div/div[2]/div[2]/div/div[1]"));
-//    WebElement passwordStr = getDriver().findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div/div[2]"));
+    @FindBy(xpath = "/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[3]")
+    private By thirdOption ;
 
-    By products = By.xpath("//*[@id=\"header_container\"]/div[2]/span\n");
+    @FindBy(xpath = "/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[4]")
+    private By fourthOption;
 
-    public Boolean checkCoordinates() {
-        if((userInput.getLocation().getY() < passwordInput.getLocation().getY()) &&
-                (passwordInput.getLocation().getY() < loginButton.getLocation().getY())) {
+    @FindBy(xpath = "//*/div[@class=\"inventory_item_name\"]")
+    private By itemsName;
+
+    @FindBy(xpath = "//*[@id=\"header_container\"]/div[2]/span\n")
+    private ExtendedWebElement products;
+
+
+
+    By products1 = By.xpath("//*[@id=\"header_container\"]/div[2]/span\n");
+    By productsImage1 = By.xpath("//*[@class=\"inventory_item_img\"]");
+    By productsName1 = By.xpath("//*[@class=\"inventory_item_name\"]");
+    By productsDesc1 = By.xpath("//*[@class=\"inventory_item_desc\"]");
+    By productsPrice1 = By.xpath("//*[@class=\"inventory_item_price\"]");
+    By buttonCardAdd1 = By.xpath("//div[@class=\"pricebar\"]/button");
+
+    By select1 = By.xpath("//select[@class='product_sort_container']");
+    By firstOption1= By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[1]");
+    By secondOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[2]");
+    By thirdOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[3]");
+    By fourthOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[4]");
+
+    By itemsName1 = By.xpath("//*/div[@class=\"inventory_item_name\"]");
+
+    WebElement selectMenu1;
+
+
+    public Boolean checkProductsCardElements() throws InterruptedException {
+        if (isElementPresent(productsImage1) && isElementPresent(productsName1) &&
+                isElementPresent(productsDesc1) && isElementPresent(productsPrice1) &&
+                isElementPresent(buttonCardAdd1)) {
             return true;
         }
         return false;
     }
 
-    public Boolean authorization() throws InterruptedException{
-        userInput.sendKeys(Keys.valueOf(userNameStr.getText().split(":", 2)[1].split("locked", 2)[0]));
-        passwordInput.sendKeys(Keys.valueOf(passwordStr.getText().split(":", 2)[1]));
-        loginButton.click();
+    public Boolean checkSelect() throws InterruptedException {
+        WebElement selectMenu = getDriver().findElement(select1);
+        selectMenu.click();
         Thread.sleep(3000);
 
-        if (isElementPresent(products)) {
+        if (isElementPresent(firstOption1) && isElementPresent(secondOption1) &&
+                isElementPresent(thirdOption1) && isElementPresent(fourthOption1)) {
             return true;
         }
         return false;
+    }
+
+    public Boolean checkDefaultFilter() throws InterruptedException {
+        WebElement selectMenu = getDriver().findElement(select1);
+        selectMenu.click();
+        Thread.sleep(3000);
+        String defaultFilter = selectMenu.getAttribute("value");
+
+        WebElement option = getDriver().findElement(secondOption1);
+        option.click();
+        Thread.sleep(3000);
+
+        selectMenu = getDriver().findElement(select1);
+        selectMenu.click();
+
+        String otherFilter = selectMenu.getAttribute("value");
+
+        option = getDriver().findElement(firstOption1);
+        option.click();
+
+        if (StringUtils.equals(defaultFilter, "az") && StringUtils.equals(otherFilter, "za")) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public Boolean checkOrderAz() throws InterruptedException {
+        List<WebElement> linkList = getDriver().findElements(itemsName1);
+        Boolean isRightOrder = true;
+        for(int i=1; i<6; i++){
+            int result = linkList.get(i).getText().compareTo(linkList.get(i-1).getText());
+            if (result<0) {
+                isRightOrder = false;
+            }
+        }
+        return isRightOrder;
+    }
+
+    public Boolean checkOrderZa() throws InterruptedException {
+        List<WebElement> linkList = driver.findElements(itemsName);
+        Boolean isRightOrder = true;
+        for(int i=1; i<6; i++){
+            int result = linkList.get(i).getText().compareTo(linkList.get(i-1).getText());
+            if (result>0) {
+                isRightOrder = false;
+            }
+        }
+        return isRightOrder;
     }
 
     public boolean isElementPresent(By el) {

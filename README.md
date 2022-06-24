@@ -22,6 +22,61 @@ mvn clean eclipse:eclipse
 
 ### Run tests
 ```
-mvn clean test -Dsuite=api
-```
+mvn clean test -Dsuite=
+
+java -jar -Dwebdriver.chrome.driver="C:\chromedriver.exe" selenium-server-standalone-3.141.59.jar
+
+Cases for AQA course
+
+
+Verify right position all elements on login page
+Steps
+1. open site
+Expected results
+Username field above password field
+Login btn below password field
+
+
+Verify product item card
+Steps
+1. open site
+2. login
+Expected results
+Products page is opened
+Card contains:
+ - image,
+ - product name,
+ - product description,
+ - price,
+ - ADD TO CART btn
+
+
+Verify drop down filter menu
+Steps
+1. open site
+2. login
+Expected results
+Products page is opened
+Menu contains:
+ - Name (A to Z)
+ - Name (Z to A)
+ - Price (low to high)
+ - Price (high to low)
+
+
+Verify drop down filter menu
+Steps
+1. open site
+2. login -> Products page is opened, default filter is "Name (A to Z)" is selected
+3. select another filter -> another filter is selected
+
+
+* Verify all products sorted by alphabetical
+Steps
+1. open site
+2. login
+Expected results
+Products page is opened
+Default filter is "Name (A to Z)"
+All products is sorted by alphabetical
 
