@@ -18,6 +18,7 @@ package com.qaprosoft.carina.demo.gui.pages;
 import java.lang.invoke.MethodHandles;
 import com.qaprosoft.carina.core.foundation.utils.Configuration;
 import com.qaprosoft.carina.core.foundation.utils.R;
+import com.qaprosoft.carina.demo.gui.mygui.pages.InventoryPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -82,4 +83,19 @@ public class SauceLoginPage extends AbstractPage {
             return false;
         }
     }
+
+    public ProductCardPage logInAsStandardUser() {
+        userInput.type("standard_user");
+        passwordInput.type("secret_sauce");
+        loginButton.click();
+        return new ProductCardPage(driver);
+    }
+
+    public ProductCardPage enterWrightDataAndClick(String username, String password){
+        this.userInput.type(username);
+        this.passwordInput.type(password);
+        loginButton.click();
+        return new ProductCardPage(driver);
+    }
+
 }

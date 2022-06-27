@@ -73,27 +73,27 @@ public class ProductCardPage extends AbstractPage {
 
 
 
-    By products1 = By.xpath("//*[@id=\"header_container\"]/div[2]/span\n");
-    By productsImage1 = By.xpath("//*[@class=\"inventory_item_img\"]");
-    By productsName1 = By.xpath("//*[@class=\"inventory_item_name\"]");
-    By productsDesc1 = By.xpath("//*[@class=\"inventory_item_desc\"]");
-    By productsPrice1 = By.xpath("//*[@class=\"inventory_item_price\"]");
+//    By products1 = By.xpath("//*[@id=\"header_container\"]/div[2]/span\n");
+//    By productsImage1 = By.xpath("//*[@class=\"inventory_item_img\"]");
+//    By productsName1 = By.xpath("//*[@class=\"inventory_item_name\"]");
+//    By productsDesc1 = By.xpath("//*[@class=\"inventory_item_desc\"]");
+//    By productsPrice1 = By.xpath("//*[@class=\"inventory_item_price\"]");
     By buttonCardAdd1 = By.xpath("//div[@class=\"pricebar\"]/button");
-
-    By select1 = By.xpath("//select[@class='product_sort_container']");
-    By firstOption1= By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[1]");
-    By secondOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[2]");
-    By thirdOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[3]");
-    By fourthOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[4]");
-
-    By itemsName1 = By.xpath("//*/div[@class=\"inventory_item_name\"]");
-
-    WebElement selectMenu1;
+//
+//    By select1 = By.xpath("//select[@class='product_sort_container']");
+//    By firstOption1= By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[1]");
+//    By secondOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[2]");
+//    By thirdOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[3]");
+//    By fourthOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[4]");
+//
+//    By itemsName1 = By.xpath("//*/div[@class=\"inventory_item_name\"]");
+//
+//    WebElement selectMenu1;
 
 
     public Boolean checkProductsCardElements() throws InterruptedException {
-        if (isElementPresent(productsImage1) && isElementPresent(productsName1) &&
-                isElementPresent(productsDesc1) && isElementPresent(productsPrice1) &&
+        if (isElementPresent(productsImage) && isElementPresent(productsName) &&
+                isElementPresent(productsDesc) && isElementPresent(productsPrice) &&
                 isElementPresent(buttonCardAdd1)) {
             return true;
         }
@@ -101,33 +101,31 @@ public class ProductCardPage extends AbstractPage {
     }
 
     public Boolean checkSelect() throws InterruptedException {
-        WebElement selectMenu = getDriver().findElement(select1);
+        WebElement selectMenu = getDriver().findElement(select);
         selectMenu.click();
         Thread.sleep(3000);
 
-        if (isElementPresent(firstOption1) && isElementPresent(secondOption1) &&
-                isElementPresent(thirdOption1) && isElementPresent(fourthOption1)) {
-            return true;
-        }
-        return false;
+        return (isElementPresent(firstOption) && isElementPresent(secondOption) &&
+                isElementPresent(thirdOption) && isElementPresent(fourthOption));
+
     }
 
     public Boolean checkDefaultFilter() throws InterruptedException {
-        WebElement selectMenu = getDriver().findElement(select1);
+        WebElement selectMenu = getDriver().findElement(select);
         selectMenu.click();
         Thread.sleep(3000);
         String defaultFilter = selectMenu.getAttribute("value");
 
-        WebElement option = getDriver().findElement(secondOption1);
+        WebElement option = getDriver().findElement(secondOption);
         option.click();
         Thread.sleep(3000);
 
-        selectMenu = getDriver().findElement(select1);
+        selectMenu = getDriver().findElement(select);
         selectMenu.click();
 
         String otherFilter = selectMenu.getAttribute("value");
 
-        option = getDriver().findElement(firstOption1);
+        option = getDriver().findElement(firstOption);
         option.click();
 
         if (StringUtils.equals(defaultFilter, "az") && StringUtils.equals(otherFilter, "za")) {
@@ -138,7 +136,7 @@ public class ProductCardPage extends AbstractPage {
 
 
     public Boolean checkOrderAz() throws InterruptedException {
-        List<WebElement> linkList = getDriver().findElements(itemsName1);
+        List<WebElement> linkList = getDriver().findElements(itemsName);
         Boolean isRightOrder = true;
         for(int i=1; i<6; i++){
             int result = linkList.get(i).getText().compareTo(linkList.get(i-1).getText());
