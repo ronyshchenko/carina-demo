@@ -19,8 +19,6 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
-import com.qaprosoft.carina.demo.gui.mygui.pages.InventoryPage;
-import com.qaprosoft.carina.demo.gui.mygui.pages.LogInPage;
 import com.qaprosoft.carina.demo.gui.pages.ProductCardPage;
 import com.qaprosoft.carina.demo.gui.pages.SauceLoginPage;
 import org.slf4j.Logger;
@@ -62,11 +60,22 @@ public class SauceDemoTest implements IAbstractTest {
     @Test()
     public void verifyProductItemCard() throws InterruptedException {
         SoftAssert softAssert = new SoftAssert();
-        //ProductCardPage productCardPage = loginAsStandardUser();
-        ProductCardPage productCardPage = sauceLoginPage.enterWrightDataAndClick("standard_user", "secret_sauce");
+        SauceLoginPage sauceLoginPage = openPage();
+        ProductCardPage productCardPage = loginAsStandardUser();
+        productCardPage = sauceLoginPage.enterWrightDataAndClick("standard_user", "secret_sauce");
         Boolean existenceProduct = productCardPage.checkProductsCardElements();
         Assert.assertTrue(existenceProduct, "Page don't have elements");
         softAssert.assertAll();
+    }
+
+    @Test()
+    public void select() throws InterruptedException {
+        SoftAssert softAssert = new SoftAssert();
+        SauceLoginPage sauceLoginPage = openPage();
+        ProductCardPage productCardPage = sauceLoginPage.enterWrightDataAndClick("standard_user", "secret_sauce");
+        Boolean existenceProduct = productCardPage.checkSelect();
+        Boolean expectProduct = true;
+        Assert.assertEquals(existenceProduct, expectProduct);
     }
 
 //    @BeforeSuite
@@ -137,7 +146,6 @@ public class SauceDemoTest implements IAbstractTest {
 
     private ProductCardPage loginAsStandardUser() {
         SauceLoginPage sauceLoginPage = openPage();
-
         ProductCardPage productCardPage = sauceLoginPage.logInAsStandardUser();
         Assert.assertTrue(productCardPage.isPageOpened(), "Inventory page not opened");
         LOGGER.info("User login success, inventory page is opened");
