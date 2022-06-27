@@ -78,64 +78,25 @@ public class SauceDemoTest implements IAbstractTest {
         Assert.assertEquals(existenceProduct, expectProduct);
     }
 
-//    @BeforeSuite
-//    public void startDriver() {
-//        sauceLoginPage = new SauceLoginPage(getDriver());
-//        productCardPage = new ProductCardPage(getDriver());
-//    }
+    @Test()
+    public void selectDefaultFilter() throws InterruptedException {
+        SoftAssert softAssert = new SoftAssert();
+        SauceLoginPage sauceLoginPage = openPage();
+        ProductCardPage productCardPage = sauceLoginPage.enterWrightDataAndClick("standard_user", "secret_sauce");
+        Boolean existenceProduct = productCardPage.checkDefaultFilter();
+        Boolean expectProduct = true;
+        Assert.assertEquals(existenceProduct, expectProduct);
+    }
 
-//    @Test(priority = 1)
-//    public void testOpenPage1() {
-//        sauceLoginPage.open();
-//        Assert.assertTrue(sauceLoginPage.isPageOpened(), "Home page is not opened");
-//    }
-//
-//    @Test(priority = 2)
-//    public void checkOrder() throws InterruptedException {
-//        Thread.sleep(3000);
-//        Boolean existenceOrder = sauceLoginPage.checkCoordinates();
-//        Boolean expectOrder = true;
-//        Assert.assertEquals(existenceOrder, expectOrder);
-//    }
-//
-//    @Test(priority = 3)
-//    public void loginning() throws InterruptedException {
-//        Thread.sleep(3000);
-//        Boolean existenceAutorization = sauceLoginPage.authorization();
-//        Boolean expectAutorization = true;
-//        Assert.assertEquals(existenceAutorization, expectAutorization);
-//    }
-//
-//    @Test(priority = 4)
-//    public void productCardCheck() throws InterruptedException {
-//        Thread.sleep(3000);
-//        Boolean existenceProduct = productCardPage.checkProductsCardElements();
-//        Boolean expectProduct = true;
-//        Assert.assertEquals(existenceProduct, expectProduct);
-//    }
-//
-//    @Test(priority = 5)
-//    public void select() throws InterruptedException {
-//        Thread.sleep(5000);
-//        Boolean existenceProduct = productCardPage.checkSelect();
-//        Boolean expectProduct = true;
-//        Assert.assertEquals(existenceProduct, expectProduct);
-//    }
-//
-//    @Test(priority = 6)
-//    public void selectDefaultFilter() throws InterruptedException {
-//        Thread.sleep(5000);
-//        Boolean existenceProduct = productCardPage.checkDefaultFilter();
-//        Boolean expectProduct = true;
-//        Assert.assertEquals(existenceProduct, expectProduct);
-//    }
-//
-//    @Test(priority = 7)
-//    public void checkProductsOrderAz() throws InterruptedException {
-//        Boolean existenceOrder = productCardPage.checkOrderAz();
-//        Boolean expectOrder = true;
-//        Assert.assertEquals(existenceOrder, expectOrder);
-//    }
+    @Test()
+    public void checkProductsOrderAz() throws InterruptedException {
+        SoftAssert softAssert = new SoftAssert();
+        SauceLoginPage sauceLoginPage = openPage();
+        ProductCardPage productCardPage = sauceLoginPage.enterWrightDataAndClick("standard_user", "secret_sauce");
+        Boolean existenceOrder = productCardPage.checkOrderAz();
+        Boolean expectOrder = true;
+        Assert.assertEquals(existenceOrder, expectOrder);
+    }
 
     private SauceLoginPage openPage() {
         SauceLoginPage sauceLoginPage = new SauceLoginPage(getDriver());
