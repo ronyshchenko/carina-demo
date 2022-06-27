@@ -32,9 +32,6 @@ import org.testng.asserts.SoftAssert;
 public class SauceDemoTest implements IAbstractTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    SauceLoginPage sauceLoginPage = null;
-    ProductCardPage productCardPage = null;
-
     @Test()
     public void checkPositions() {
         SauceLoginPage sauceLoginPage = openPage();

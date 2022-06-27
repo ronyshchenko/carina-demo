@@ -18,7 +18,6 @@ package com.qaprosoft.carina.demo.gui.pages;
 import java.lang.invoke.MethodHandles;
 import com.qaprosoft.carina.core.foundation.utils.Configuration;
 import com.qaprosoft.carina.core.foundation.utils.R;
-import com.qaprosoft.carina.demo.gui.mygui.pages.InventoryPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
