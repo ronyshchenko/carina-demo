@@ -19,6 +19,8 @@ import com.qaprosoft.carina.core.foundation.utils.Configuration;
 import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import com.qaprosoft.carina.demo.gui.components.CardItem;
+import com.qaprosoft.carina.demo.gui.components.FilterMenu;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -29,117 +31,59 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 
-public class ProductCardPage extends AbstractPage {
+public class ProductCardPage extends AfterLoginPage {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public ProductCardPage(WebDriver driver) {
         super(driver);
-        setUiLoadedMarker(products);
-        setPageAbsoluteURL(R.CONFIG.get(Configuration.Parameter.URL.getKey()));
+        setPageURL("https://www.saucedemo.com/inventory.html");
     }
 
-    @FindBy(xpath = "//*[@class=\"inventory_item_img\"]")
-    private By productsImage;
+    @FindBy(xpath = "//div[@class=\"inventory_item\"]")
+    private List<CardItem> cardItems;
 
-    @FindBy(xpath = "//*[@class=\"inventory_item_name\"]")
-    private By productsName ;
+    @FindBy(xpath = "//div[@class=\"inventory_item\"]//img")
+    private List<ExtendedWebElement> productImages;
 
-    @FindBy(xpath = "//*[@class=\"inventory_item_desc\"]")
-    private By productsDesc ;
+    @FindBy(xpath = "//div[@class=\"inventory_item\"]//a/div")
+    private List<ExtendedWebElement> itemNames;
 
-    @FindBy(xpath = "//*[@class=\"inventory_item_price\"]")
-    private By productsPrice ;
+    @FindBy(xpath = "//div[@class=\"inventory_item\"]//div[@class=\"inventory_item_desc\"]")
+    private List<ExtendedWebElement> productDescriptions;
+
+    @FindBy(xpath = "//div[@class=\"inventory_item\"]//div[@class=\"inventory_item_price\"]")
+    private List<ExtendedWebElement> productPrices;
+
+    @FindBy(xpath = "//div[@class=\"inventory_item\"]//button")
+    private List<ExtendedWebElement> addToCardButtons;
 
     @FindBy(xpath = "//select[@class='product_sort_container']")
-    private By  select ;
-
-    @FindBy(xpath = "/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[1]")
-    private By firstOption ;
-
-    @FindBy(xpath = "/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[2]")
-    private By secondOption ;
-
-    @FindBy(xpath = "/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[3]")
-    private By thirdOption ;
-
-    @FindBy(xpath = "/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[4]")
-    private By fourthOption;
-
-    @FindBy(xpath = "//*/div[@class=\"inventory_item_name\"]")
-    private By itemsName;
+    private ExtendedWebElement select;
 
     @FindBy(xpath = "//*[@id=\"header_container\"]/div[2]/span\n")
     private ExtendedWebElement products;
 
+    @FindBy(xpath = "//select")
+    private FilterMenu filterMenu;
 
 
-//    By products1 = By.xpath("//*[@id=\"header_container\"]/div[2]/span\n");
-//    By productsImage1 = By.xpath("//*[@class=\"inventory_item_img\"]");
-//    By productsName1 = By.xpath("//*[@class=\"inventory_item_name\"]");
-//    By productsDesc1 = By.xpath("//*[@class=\"inventory_item_desc\"]");
-//    By productsPrice1 = By.xpath("//*[@class=\"inventory_item_price\"]");
-    By buttonCardAdd1 = By.xpath("//div[@class=\"pricebar\"]/button");
-//
-//    By select1 = By.xpath("//select[@class='product_sort_container']");
-//    By firstOption1= By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[1]");
-//    By secondOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[2]");
-//    By thirdOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[3]");
-//    By fourthOption1 = By.xpath("/html/body/div/div/div/div[1]/div[2]/div[2]/span/select/option[4]");
-//
-//    By itemsName1 = By.xpath("//*/div[@class=\"inventory_item_name\"]");
-//
-//    WebElement selectMenu1;
-
-
-    public Boolean checkProductsCardElements() throws InterruptedException {
-        if (isElementPresent(productsImage) && isElementPresent(productsName) &&
-                isElementPresent(productsDesc) && isElementPresent(productsPrice) &&
-                isElementPresent(buttonCardAdd1)) {
-            return true;
-        }
-        return false;
+    public List<ExtendedWebElement> getFirstCardElement(){
+        return List.of(productImages.get(0), itemNames.get(0), productDescriptions.get(0),
+                productPrices.get(0), addToCardButtons.get(0));
     }
 
-    public Boolean checkSelect() throws InterruptedException {
-        WebElement selectMenu = getDriver().findElement(select);
-        selectMenu.click();
-        Thread.sleep(3000);
-
-        return (isElementPresent(firstOption) && isElementPresent(secondOption) &&
-                isElementPresent(thirdOption) && isElementPresent(fourthOption));
-
+    public FilterMenu getFilterMenu() {
+        return filterMenu;
     }
 
-    public Boolean checkDefaultFilter() throws InterruptedException {
-        WebElement selectMenu = getDriver().findElement(select);
-        selectMenu.click();
-        Thread.sleep(3000);
-        String defaultFilter = selectMenu.getAttribute("value");
-
-        WebElement option = getDriver().findElement(secondOption);
-        option.click();
-        Thread.sleep(3000);
-
-        selectMenu = getDriver().findElement(select);
-        selectMenu.click();
-
-        String otherFilter = selectMenu.getAttribute("value");
-
-        option = getDriver().findElement(firstOption);
-        option.click();
-
-        if (StringUtils.equals(defaultFilter, "az") && StringUtils.equals(otherFilter, "za")) {
-            return true;
-        }
-        return false;
+    public List<CardItem> getCardItems() {
+        return cardItems;
     }
-
 
     public Boolean checkOrderAz() throws InterruptedException {
-        List<WebElement> linkList = getDriver().findElements(itemsName);
         Boolean isRightOrder = true;
         for(int i=1; i<6; i++){
-            int result = linkList.get(i).getText().compareTo(linkList.get(i-1).getText());
+            int result = itemNames.get(i).getText().compareTo(itemNames.get(i-1).getText());
             if (result<0) {
                 isRightOrder = false;
             }
@@ -148,10 +92,9 @@ public class ProductCardPage extends AbstractPage {
     }
 
     public Boolean checkOrderZa() throws InterruptedException {
-        List<WebElement> linkList = driver.findElements(itemsName);
         Boolean isRightOrder = true;
         for(int i=1; i<6; i++){
-            int result = linkList.get(i).getText().compareTo(linkList.get(i-1).getText());
+            int result = itemNames.get(i).getText().compareTo(itemNames.get(i-1).getText());
             if (result>0) {
                 isRightOrder = false;
             }
@@ -159,12 +102,13 @@ public class ProductCardPage extends AbstractPage {
         return isRightOrder;
     }
 
-    public boolean isElementPresent(By el) {
-        try {
-            getDriver().findElement(el);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+    public ProductPageWithId4 openFirstProductPage(){
+        productImages.get(0).click();
+        return new ProductPageWithId4(driver);
+    }
+
+    public boolean clickCartButton(int index){
+        addToCardButtons.get(index).click();
+        return StringUtils.equalsIgnoreCase(addToCardButtons.get(index).getText(), "remove");
     }
 }

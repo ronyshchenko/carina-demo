@@ -21,10 +21,10 @@ mvn clean eclipse:eclipse
 ```
 
 ### Run tests
-```
+```java -jar -Dwebdriver.chrome.driver="C:\chromedriver.exe" selenium-server-standalone-3.141.59.jar
 mvn clean test -Dsuite=
 
-java -jar -Dwebdriver.chrome.driver="C:\chromedriver.exe" selenium-server-standalone-3.141.59.jar
+
 
 Cases for AQA course
 
