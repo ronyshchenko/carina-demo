@@ -135,28 +135,7 @@ public class SauceDemoTest implements IAbstractTest {
         softAssert.assertAll();
     }
 
-    @Test()
-    public void basketQuantityTest() {
-        ProductCardPage productCardPage = loginAsStandardUser();
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(productCardPage.clickCartButton(0));
-        softAssert.assertTrue(productCardPage.clickCartButton(2));
-        softAssert.assertAll();
-
-        BasketPage basketPage = productCardPage.getHeader().goToBasket();
-        Assert.assertTrue(basketPage.isPageOpened(), "Basket page didn`t opened");
-        Assert.assertEquals(basketPage.quantityOfCardItems(), 2);
-    }
-
-    @Test()
-    public void openFirstCardTest() {
-        ProductCardPage productCardPage = loginAsStandardUser();
-        ProductPageWithId4 productPageWithId4 = productCardPage.openFirstProductPage();
-        Assert.assertTrue(productPageWithId4.isPageOpened(), "Product page was no open");
-    }
-
-
-    private SauceLoginPage openPage() {
+        private SauceLoginPage openPage() {
         SauceLoginPage sauceLoginPage = new SauceLoginPage(getDriver());
         sauceLoginPage.open();
         Assert.assertTrue(sauceLoginPage.isPageOpened(), "Login page not opened");
