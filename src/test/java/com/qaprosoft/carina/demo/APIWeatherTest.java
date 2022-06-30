@@ -15,7 +15,7 @@ public class APIWeatherTest implements IAbstractTest {
         GetWeatherMethod api = new GetWeatherMethod();
         api.callAPIExpectSuccess();
         api.validateResponse(JSONCompareMode.STRICT, JsonCompareKeywords.ARRAY_CONTAINS.getKey());
-        api.validateResponseAgainstSchema("api/weather/_get/rs.schema");
+        api.validateResponseAgainstSchema("api/weather/_get/rq.json");
     }
 
 //    @Test()
@@ -23,7 +23,7 @@ public class APIWeatherTest implements IAbstractTest {
 //        AirPolutionGetMethod api =  new AirPolutionGetMethod();
 //        api.callAPIExpectSuccess();
 //        api.validateResponse(JSONCompareMode.STRICT, JsonCompareKeywords.ARRAY_CONTAINS.getKey());
-//        api.validateResponseAgainstSchema("api/pollution/_get/rs.schema");
+//        api.validateResponseAgainstSchema("api/pollution/_get/rq.json");
 //    }
 
 //    @Test()
@@ -31,6 +31,6 @@ public class APIWeatherTest implements IAbstractTest {
 //        GetCatFactMethod factMethod = new GetCatFactMethod();
 //        factMethod.callAPIExpectSuccess();
 //        factMethod.validateResponse(JSONCompareMode.STRICT, JsonCompareKeywords.ARRAY_CONTAINS.getKey());
-//        factMethod.validateResponseAgainstSchema("api/cat/_get/rs.schema");
+//        factMethod.validateResponseAgainstSchema("api/cat/_get/rq.json");
 //    }
 }

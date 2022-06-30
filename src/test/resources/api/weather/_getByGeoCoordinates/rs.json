@@ -1,0 +1,44 @@
+{
+  "coord": {
+    "lon": "regex:[\\d\\_\\.]+",
+    "lat": "regex:[\\d\\_\\.]+"
+  },
+  "weather": [
+    {
+      "id": "type:Integer",
+      "main": "type:String",
+      "description": "type:String",
+      "icon": "type:String"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": "regex:[\\d\\_\\.]+",
+    "feels_like": "regex:[\\d\\_\\.]+",
+    "temp_min": "regex:[\\d\\_\\.]+",
+    "temp_max": "regex:[\\d\\_\\.]+",
+    "pressure": "regex:[\\d\\_\\.]+",
+    "humidity": "regex:[\\d\\_\\.]+",
+    "sea_level": "regex:[\\d\\_\\.]+",
+    "grnd_level": "regex:[\\d\\_\\.]+"
+  },
+  "visibility": "type:Integer",
+  "wind": {
+    "speed": "regex:[\\d\\_\\.]+",
+    "deg": "regex:[\\d\\_\\.]+",
+    "gust": "regex:[\\d\\_\\.]+"
+  },
+  "clouds": {
+    "all": "type:Integer"
+  },
+  "dt": "type:Integer",
+  "sys": {
+    "country": "type:String",
+    "sunrise": "type:Integer",
+    "sunset": "type:Integer"
+  },
+  "timezone": "type:Integer",
+  "id": "type:Integer",
+  "name": "type:String",
+  "cod": "type:Integer"
+}
