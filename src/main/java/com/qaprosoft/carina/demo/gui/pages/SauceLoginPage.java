@@ -16,8 +16,6 @@
 package com.qaprosoft.carina.demo.gui.pages;
 
 import java.lang.invoke.MethodHandles;
-import com.qaprosoft.carina.core.foundation.utils.Configuration;
-import com.qaprosoft.carina.core.foundation.utils.R;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -25,18 +23,12 @@ import org.slf4j.LoggerFactory;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
 
-
 public class SauceLoginPage extends AbstractPage {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public SauceLoginPage(WebDriver driver) {
         super(driver);
-//        setUiLoadedMarker(loginPageMarker);
-//        setPageAbsoluteURL(R.CONFIG.get(Configuration.Parameter.URL.getKey()));
     }
-
-//    @FindBy(xpath = "//*[@id=\"root\"]/div/div[1]")
-//    private ExtendedWebElement loginPageMarker;
 
     @FindBy(xpath = "//*[@id=\"user-name\"]")
     private ExtendedWebElement userInput;
@@ -47,20 +39,10 @@ public class SauceLoginPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"login-button\"]")
     private ExtendedWebElement loginButton;
 
-//    @FindBy(xpath = "/html/body/div/div/div[2]/div[2]/div/div[1]")
-//    private ExtendedWebElement userNameStr;
-//
-//    @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div[2]/div/div[2]")
-//    private ExtendedWebElement passwordStr;
-//
-//    By products = By.xpath("//*[@id=\"header_container\"]/div[2]/span\n");
-
     public Boolean checkCoordinates() {
         return ((userInput.getLocation().getY() < passwordInput.getLocation().getY()) &&
                 (passwordInput.getLocation().getY() < loginButton.getLocation().getY()));
     }
-
-
 
     public ProductCardPage logInAsStandardUser() {
         userInput.type("standard_user");
